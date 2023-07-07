@@ -14,7 +14,7 @@
 
 int	esc_exit(int keycode, t_game *game)
 {
-	if(keycode == 65307)
+	if (keycode == 65307)
 	{
 		full_free(game);
 	}

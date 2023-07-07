@@ -14,21 +14,21 @@
 
 void	count_c(t_game *game)
 {
-	int a;
-	int b;
+	int	a;
+	int	b;
 
 	a = 0;
 	b = 0;
 	game->c_number = 0;
-	while(game->map[a])
+	while (game->map[a])
 	{
 		b = 0;
-		while(game->map[a][b])
+		while (game->map[a][b])
 		{
-			if (game->map[a][b] == 'c'||
+			if (game->map[a][b] == 'c' ||
 			game->map[a][b] == 'C')
 				game->c_number += 1;
-		       b++;	
+			b++;
 		}
 		a++;
 	}

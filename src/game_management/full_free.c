@@ -20,7 +20,7 @@ void	full_free(t_game *game)
 	mlx_destroy_image(game->mlx, game->obj);
 	mlx_destroy_image(game->mlx, game->player);
 	mlx_destroy_image(game->mlx, game->wall);
-	mlx_destroy_window(game->mlx , game->win);
+	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
 	exit (0);
