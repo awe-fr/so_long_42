@@ -15,4 +15,5 @@
 int	free_display(t_game *game)
 {
 	full_free(game);
+	return (0);
 }
