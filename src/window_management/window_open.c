@@ -20,6 +20,7 @@ void	window_open(char **map)
 	game.win = mlx_new_window(game.mlx, axe_z(map), axe_y(map), "so_long");
 	mlx_key_hook(game.win, esc_exit, &game);
 	mlx_hook(game.win, 17, 1L<<8, free_display, &game);
+	game.moove_count = 0;
 	game_start(&game);
 	map_to_struct(map, &game);
 	count_c(&game);

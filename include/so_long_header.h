@@ -36,6 +36,7 @@ typedef struct	s_game
 	int	mouve_count;
 	int	c_number;
 	char **map;
+	int	moove_count;
 }				t_game;
 
 	/*      Map Management     */
@@ -90,5 +91,7 @@ void    go_to_other_check_right(t_game *game);
 void    go_to_other_check_left(t_game *game);
 void    go_to_other_check_down(t_game *game);
 void	full_free(t_game *game);
+void    int_to_print(int moove_count);
+void    moove_count(t_game *game);
 
 #endif

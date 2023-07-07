@@ -20,6 +20,7 @@ void	go_to_other_check_up(t_game *game)
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->floor, game->z * LEN, game->y * LEN);
 		game->y -= 1;
+		moove_count(game);
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->player, game->z * LEN, game->y * LEN);
 		full_free(game);
@@ -34,6 +35,7 @@ void	go_to_other_check_right(t_game *game)
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->floor, game->z * LEN, game->y * LEN);
 		game->z += 1;
+		moove_count(game);
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->player, game->z * LEN, game->y * LEN);
 		full_free(game);
@@ -48,6 +50,7 @@ void	go_to_other_check_left(t_game *game)
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->floor, game->z * LEN, game->y * LEN);
 		game->z -= 1;
+		moove_count(game);
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->player, game->z * LEN, game->y * LEN);
 		full_free(game);
@@ -62,6 +65,7 @@ void	go_to_other_check_down(t_game *game)
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->floor, game->z * LEN, game->y * LEN);
 		game->y += 1;
+		moove_count(game);
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->player, game->z * LEN, game->y * LEN);
 		full_free(game);

@@ -20,6 +20,7 @@ void	can_go_up(t_game *game)
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->floor, game->z * LEN, game->y * LEN);
 		game->y -= 1;
+		moove_count(game);
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->player, game->z * LEN, game->y * LEN);
 	}
@@ -29,6 +30,7 @@ void	can_go_up(t_game *game)
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->floor, game->z * LEN, game->y * LEN);
 		game->y -= 1;
+		moove_count(game);
 		game->map[game->y][game->z] = '0';
 		game->c_number -= 1;
 		mlx_put_image_to_window(game->mlx,
@@ -46,6 +48,7 @@ void	can_go_right(t_game *game)
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->floor, game->z * LEN, game->y * LEN);
 		game->z += 1;
+		moove_count(game);
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->player, game->z * LEN, game->y * LEN);
 	}
@@ -55,6 +58,7 @@ void	can_go_right(t_game *game)
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->floor, game->z * LEN, game->y * LEN);
 		game->z += 1;
+		moove_count(game);
 		game->map[game->y][game->z] = '0';
 		game->c_number -= 1;
 		mlx_put_image_to_window(game->mlx,
@@ -72,6 +76,7 @@ void	can_go_left(t_game *game)
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->floor, game->z * LEN, game->y * LEN);
 		game->z -= 1;
+		moove_count(game);
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->player, game->z * LEN, game->y * LEN);
 	}
@@ -81,6 +86,7 @@ void	can_go_left(t_game *game)
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->floor, game->z * LEN, game->y * LEN);
 		game->z -= 1;
+		moove_count(game);
 		game->map[game->y][game->z] = '0';
 		game->c_number -= 1;
 		mlx_put_image_to_window(game->mlx,
@@ -98,6 +104,7 @@ void	can_go_down(t_game *game)
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->floor, game->z * LEN, game->y * LEN);
 		game->y += 1;
+		moove_count(game);
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->player, game->z * LEN, game->y * LEN);
 	}
@@ -107,6 +114,7 @@ void	can_go_down(t_game *game)
 		mlx_put_image_to_window(game->mlx,
 		game->win, game->floor, game->z * LEN, game->y * LEN);
 		game->y += 1;
+		moove_count(game);
 		game->map[game->y][game->z] = '0';
 		game->c_number -= 1;
 		mlx_put_image_to_window(game->mlx,
