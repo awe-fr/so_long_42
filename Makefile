@@ -6,12 +6,12 @@ OBJS = $(SRCS:.c=.o)
 
 CC = gcc
 
-CFLAGS_MLX = -lXext -lX11 -lm -o
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS_MLX = -Iinclude -ldl -lglfw -pthread -lm -o
+CFLAGS = #-Wall -Werror -Wextra
 RM = rm -f
 
 MLX_PATH  = headers/MLX42/
-MLX_EXEC = libmlx.a
+MLX_EXEC = libmlx42.a
 MLX = $(MLX_PATH)$(MLX_EXEC)
 
 all:			$(NAME)
