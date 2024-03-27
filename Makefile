@@ -1,21 +1,23 @@
 NAME = so_long
 
-SRCS = main.c\
-	src/map_management/*.c\
-	src/window_management/*.c\
-	src/game_management/*.c\
+SRCS = SRCS/*.c\
 
 OBJS = $(SRCS:.c=.o)
 
 CC = gcc
 
+CFLAGS_MLX = -lXext -lX11 -lm -o
 CFLAGS = -Wall -Werror -Wextra
 RM = rm -f
+
+MLX_PATH  = headers/MLX42/
+MLX_EXEC = libmlx.a
+MLX = $(MLX_PATH)$(MLX_EXEC)
 
 all:			$(NAME)
 
 $(NAME):		$(OBJS)
-				$(CC) $(SRCS) include/minilibx-linux/libmlx.a -lXext -lX11 -o $(NAME)
+				$(CC) $(SRCS) $(MLX) $(CFLAGS_MLX) $(NAME) -g -O3
 				
 clean:
 			$(RM) $(OBJS)
