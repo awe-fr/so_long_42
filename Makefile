@@ -1,13 +1,14 @@
 NAME = so_long
 
-SRCS = SRCS/*.c\
+SRCS = srcs/*.c\
+		srcs/utils/*.c\
 
 OBJS = $(SRCS:.c=.o)
 
 CC = gcc
 
 CFLAGS_MLX = -Iinclude -ldl -lglfw -pthread -lm -o
-CFLAGS = #-Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 RM = rm -f
 
 MLX_PATH  = headers/MLX42/
@@ -17,14 +18,14 @@ MLX = $(MLX_PATH)$(MLX_EXEC)
 all:			$(NAME)
 
 $(NAME):		$(OBJS)
-				$(CC) $(SRCS) $(MLX) $(CFLAGS_MLX) $(NAME) -g -O3
+				$(CC) $(SRCS) $(MLX) $(CFLAGS_MLX) $(NAME) -g
 				
 clean:
-			$(RM) $(OBJS)
+				$(RM) $(OBJS)
 			
-fclean:		clean
-			$(RM) $(NAME)
+fclean:			clean
+				$(RM) $(NAME)
 			
-re:			fclean all
+re:				fclean all
 
-.PHONY:		all clean fclean re
+.PHONY:			all clean fclean re
