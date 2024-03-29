@@ -5,6 +5,88 @@ int map_parsing(t_map_info *map)
 	map->map_file = open(map->map_path, O_RDONLY);
 	if (get_map(map) == -1)
 		bad_path();
+	if (get_map_size(map) == -1)
+		bad_map_info(map);
+	if (check_info(map) == -1)
+		bad_map_info(map);
+}
+
+int	get_map_size(t_map_info *map)
+{
+	map->start_index = get_index(map);
+	map->size_x = map_x(map);
+	map->size_y = map_y(map);
+	if(map->size_x == 0 || map->size_y == 0)
+		return (-1);
+	if (get_player(map) == -1)
+		return (-1);
+	return 0;
+}
+
+int	get_player(t_map_info *map)
+{
+	int i;
+	int j;
+
+	i = map->start_index;
+	j = 0;
+	while(map->map[i])
+	{
+		while(map->map[i][j])
+		{
+			if (map->map[i][j] == 'P')
+			{
+				map->player_x = j;
+				map->player_y = i - map->start_index;
+				return (0);
+			}
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	return (-1);
+}
+
+int	get_index(t_map_info *map)
+{
+	int i;
+
+	i = 0;
+	while(map->map[i])
+	{
+		if (map->map[i++][0] == '1')
+			return(i - 1);
+	}
+	return (0);
+}
+
+int	map_x(t_map_info *map)
+{
+	int i; 
+
+	i = 0;
+	while(map->map[i])
+	{
+		if (map->map[i++][0] == '1')
+			return (ft_strlen(map->map[i - 1]));
+	}
+	return (0);
+}
+
+int	map_y(t_map_info *map)
+{
+	int i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while(map->map[i])
+	{
+		if (map->map[i++][0] == '1')
+			count++;
+	}
+	return (count);
 }
 
 int	get_map(t_map_info *map)
@@ -17,8 +99,7 @@ int	get_map(t_map_info *map)
 		error_in_parsing_map(map);
 	if (map_by_grid(map) == -1)
 		error_in_parsing_map(map);
-	
-	
+	return (0);
 }
 
 int	map_by_grid(t_map_info *map)
@@ -121,6 +202,12 @@ void	map_init(t_map_info *map, char *path)
 	map->closed = false;
 	map->shape = false;
 	map->exit = false;
+	map->start_index = 0;
 	map->map_file = 0;
+	map->player_x = 0;
+	map->player_y = 0;
 	map->objects = 0;
+	map->size_x = 0;
+	map->size_y = 0;
+	map->enemy = 0;
 }

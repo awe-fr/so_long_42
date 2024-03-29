@@ -5,6 +5,8 @@ int ft_strlen(char *str)
 	int i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while(str[i])
 		i++;
 	return i;
@@ -20,6 +22,8 @@ char	*ft_strcopy(char *str)
 		return (NULL);
 	size  = ft_strlen(str);
 	ret = malloc((size + 1)* sizeof(char));
+	if (!ret)
+		return(NULL);
 	i = 0;
 	while(i < size)
 	{
