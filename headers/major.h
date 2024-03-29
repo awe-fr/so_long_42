@@ -63,13 +63,18 @@ int	map_x(t_map_info *map);
 int	map_y(t_map_info *map);
 
 /* map */
+void	call_next(t_map_info *map, char **cpy, int y, int x);
+char	**ft_copy_map(t_map_info *map, char **cpy);
 int	extract_item(t_map_info *map, int i, int j);
 int	is_good_item(t_map_info *map);
+int	is_playable(t_map_info *map);
 int check_info(t_map_info *map);
 int is_shaped(t_map_info *map);
 int	is_closed(t_map_info *map);
+int	scan_map(char **cpy);
 
 /* free */
 void	map_free(t_map_info *map);
+void	free_tab(char **tab);
 
 #endif

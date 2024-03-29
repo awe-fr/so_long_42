@@ -2,6 +2,7 @@
     "files.associations": {
         "mlx42.h": "c",
         "types.h": "c",
-        "map": "c"
+        "map": "c",
+        "major.h": "c"
     }
 }
