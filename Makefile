@@ -2,6 +2,8 @@ NAME = so_long
 
 SRCS = srcs/*.c\
 		srcs/utils/*.c\
+		srcs/game/*.c\
+		srcs/map/*.c\
 
 OBJS = $(SRCS:.c=.o)
 

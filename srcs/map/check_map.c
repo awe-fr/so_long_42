@@ -1,4 +1,4 @@
-#include "../headers/major.h"
+#include "../../headers/major.h"
 
 int	check_info(t_map_info *map)
 {

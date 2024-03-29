@@ -1,4 +1,4 @@
-#include "../headers/major.h"
+#include "../../headers/major.h"
 
 void	bad_arguments()
 {

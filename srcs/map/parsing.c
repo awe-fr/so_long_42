@@ -1,6 +1,6 @@
-#include "../headers/major.h"
+#include "../../headers/major.h"
 
-int map_parsing(t_map_info *map)
+void	map_parsing(t_map_info *map)
 {
 	map->map_file = open(map->map_path, O_RDONLY);
 	if (get_map(map) == -1)

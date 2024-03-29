@@ -8,5 +8,15 @@ int	main(int ac, char **av)
 		bad_arguments();
 	map_init(&map, av[1]);
 	map_parsing(&map);
+
+	game_loop(&map);
+
+
+
+
+
+
+
+
 	map_free(&map);
 }

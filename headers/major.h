@@ -49,29 +49,32 @@ int		ft_strlen(char *str);
 
 /* parsing */
 void	map_init(t_map_info *map, char *path);
-int	map_by_grid_loop(t_map_info *map, int i, int x);
-int	get_map_size(t_map_info *map);
-int	map_by_grid(t_map_info *map);
-int map_parsing(t_map_info *map);
-int	map_by_line(t_map_info *map);
-int	get_player(t_map_info *map);
-int	next_line_count(char *str);
-int	get_index(t_map_info *map);
-int	get_map(t_map_info *map);
-int	count_line(char *str);
-int	map_x(t_map_info *map);
-int	map_y(t_map_info *map);
+void	map_parsing(t_map_info *map);
+int		map_by_grid_loop(t_map_info *map, int i, int x);
+int		get_map_size(t_map_info *map);
+int		map_by_grid(t_map_info *map);
+int		map_by_line(t_map_info *map);
+int		get_player(t_map_info *map);
+int		next_line_count(char *str);
+int		get_index(t_map_info *map);
+int		get_map(t_map_info *map);
+int		map_x(t_map_info *map);
+int		map_y(t_map_info *map);
+int		count_line(char *str);
 
 /* map */
-void	call_next(t_map_info *map, char **cpy, int y, int x);
 char	**ft_copy_map(t_map_info *map, char **cpy);
-int	extract_item(t_map_info *map, int i, int j);
-int	is_good_item(t_map_info *map);
-int	is_playable(t_map_info *map);
-int check_info(t_map_info *map);
-int is_shaped(t_map_info *map);
-int	is_closed(t_map_info *map);
-int	scan_map(char **cpy);
+void	call_next(t_map_info *map, char **cpy, int y, int x);
+int		extract_item(t_map_info *map, int i, int j);
+int		is_good_item(t_map_info *map);
+int		is_playable(t_map_info *map);
+int		check_info(t_map_info *map);
+int		is_shaped(t_map_info *map);
+int		is_closed(t_map_info *map);
+int		scan_map(char **cpy);
+
+/* game */
+void    game_loop(t_map_info *map);
 
 /* free */
 void	map_free(t_map_info *map);
