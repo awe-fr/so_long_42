@@ -29,3 +29,11 @@ void	bad_map_info(t_map_info *map)
 	map_free(map);
 	exit(1);
 }
+
+void	mlx_fail_init(t_game_info *game)
+{
+	write(2, "Error\n", ft_strlen("Error\n"));
+	write(2, "MLX failed to initialize\n", ft_strlen("MLX failed to initialize\n"));
+	map_free(game->map);
+	exit(1);
+}

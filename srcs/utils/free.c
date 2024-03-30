@@ -27,3 +27,9 @@ void	free_tab(char **tab)
 		free(tab[i++]);
 	free(tab);
 }
+
+void	free_graphics(t_game_info *game)
+{
+	map_free(game->map);
+	exit(0);
+}

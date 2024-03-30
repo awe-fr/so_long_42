@@ -12,7 +12,7 @@
 
 /* define */
 
-# define SCALE = 16;
+# define SCALE 32
 
 /* struct */
 
@@ -36,8 +36,16 @@ typedef struct s_map_info
 	int		enemy;
 }	t_map_info;
 
+typedef	struct s_game_info
+{
+	mlx_image_t	*img;
+	t_map_info	*map;
+	mlx_t		*mlx;
+}	t_game_info;
+
 /* error */
 void	error_in_parsing_map(t_map_info *map);
+void	mlx_fail_init(t_game_info *game);
 void	bad_map_info(t_map_info *map);
 void	bad_arguments();
 void	bad_path();
@@ -74,9 +82,13 @@ int		is_closed(t_map_info *map);
 int		scan_map(char **cpy);
 
 /* game */
+void	key_handler(void	*gam);
 void    game_loop(t_map_info *map);
 
+/* exit */
+
 /* free */
+void	free_graphics(t_game_info *map);
 void	map_free(t_map_info *map);
 void	free_tab(char **tab);
 
