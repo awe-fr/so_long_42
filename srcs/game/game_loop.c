@@ -9,7 +9,7 @@ void	game_loop(t_map_info *map)
 	game.textures = &textures;
 	game.img = &img;
 	game.map = map;
-	game.mlx = mlx_init((SCALE * map->size_x), (SCALE * map->size_y), "so_long", false);
+	game.mlx = mlx_init((SCALE * map->size_x) * 2, (SCALE * map->size_y) * 2, "so_long", false);
 	if (!game.mlx)
 		mlx_fail_init(&game);
 	game.display = mlx_new_image(game.mlx, (SCALE * map->size_x), (SCALE * map->size_y));
@@ -32,6 +32,7 @@ void	key_handler(void *gam)
 	game = gam;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		free_graphics(game);
+	start_print(game);
 }
 
 // void	get_img(t_game_info *game)
@@ -44,6 +45,7 @@ void	key_handler(void *gam)
 
 void	start_print(t_game_info *game)
 {
+	mlx_resize_image(game->display, (SCALE * game->map->size_x), (SCALE * game->map->size_y));
 	int	i;
 	int	j;
 
@@ -58,7 +60,9 @@ void	start_print(t_game_info *game)
 		}
 		i++;
 	}
+	mlx_resize_image(game->display, (SCALE * game->map->size_x) * 2, (SCALE * game->map->size_y) * 2);
 	mlx_image_to_window(game->mlx, game->display, 0, 0);
+
 }
 
 void	what_put(t_game_info *game, int i, int j)
@@ -88,9 +92,7 @@ void	print_tiles(t_game_info *game, unsigned long int ***tiles, int nb_frame, in
 	frame = 0;
 	i = 0;
 	if (nb_frame != 1)
-	{
-
-	}
+		frame = find_frame(game, tiles, nb_frame);
 	while(i < TEXTURE_SCALE)
 	{
 		j = 0;
@@ -101,4 +103,19 @@ void	print_tiles(t_game_info *game, unsigned long int ***tiles, int nb_frame, in
 		}
 		i++;
 	}
+}
+
+int find_frame(t_game_info *game, unsigned long ***tiles, int nb_frame)
+{
+	double	select;
+
+	// if (tiles == game->img->exit && game->map->objects != 0)
+	// 	return 0;
+	select = mlx_get_time();
+	select -= (int)select;
+	// printf("%f\n", select * 3);
+	// if (tiles == game->img->exit)
+	// 	return (select * 11)
+	select *= nb_frame;
+	return select;
 }
