@@ -31,5 +31,11 @@ void	free_tab(char **tab)
 void	free_graphics(t_game_info *game)
 {
 	map_free(game->map);
+
+
+	//delete l'image
+	//delete les images
+	//delete les texture
+	//detele l'instance
 	exit(0);
 }

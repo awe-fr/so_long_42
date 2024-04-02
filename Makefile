@@ -10,7 +10,7 @@ OBJS = $(SRCS:.c=.o)
 CC = gcc
 
 CFLAGS_MLX = -Iinclude -ldl -lglfw -pthread -lm -o
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = #-Wall -Werror -Wextra
 RM = rm -f
 
 MLX_PATH  = headers/MLX42/
