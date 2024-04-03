@@ -11,6 +11,7 @@ void	get_textures(t_game_info *game)
 	game->textures->floor[0] = mlx_load_png("./textures/map/floor.png");
 	game->textures->wall[0] = mlx_load_png("./textures/map/wall.png");
 	get_player_textures(game);
+	get_enemy_textures(game);
 	get_object_textures(game);
 	get_exit_textures(game);
 	alloc_textures(game);
@@ -18,6 +19,7 @@ void	get_textures(t_game_info *game)
 	assign_texture(game->textures->wall[0], game->img->wall[0]);
 	assign_texture_player(game);
 	assign_texture_object(game);
+	assign_texture_enemy(game);
 	assign_texture_exit(game);
 }
 
@@ -27,6 +29,10 @@ void	alloc_textures(t_game_info *game)
 	game->img->player_right = alloc_int_tab(game->img->player_right, 3);
 	game->img->player_back = alloc_int_tab(game->img->player_back, 3);
 	game->img->player_left = alloc_int_tab(game->img->player_left, 3);
+	game->img->enemy_front = alloc_int_tab(game->img->enemy_front, 3);
+	game->img->enemy_right = alloc_int_tab(game->img->enemy_right, 3);
+	game->img->enemy_back = alloc_int_tab(game->img->enemy_back, 3);
+	game->img->enemy_left = alloc_int_tab(game->img->enemy_left, 3);
 	game->img->object = alloc_int_tab(game->img->object, 24);
 	game->img->exit = alloc_int_tab(game->img->exit, 12);
 	game->img->floor = alloc_int_tab(game->img->floor, 1);
@@ -70,6 +76,24 @@ void	assign_texture_player(t_game_info *game)
 	i = -1;
 	while (++i < 3)
 		assign_texture(game->textures->player_left[i], game->img->player_left[i]);
+}
+
+void	assign_texture_enemy(t_game_info *game)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 3)
+		assign_texture(game->textures->enemy_front[i], game->img->enemy_front[i]);
+	i = -1;
+	while (++i < 3)
+		assign_texture(game->textures->enemy_right[i], game->img->enemy_right[i]);
+	i = -1;
+	while (++i < 3)
+		assign_texture(game->textures->enemy_back[i], game->img->enemy_back[i]);
+	i = -1;
+	while (++i < 3)
+		assign_texture(game->textures->enemy_left[i], game->img->enemy_left[i]);
 }
 
 void	assign_texture_object(t_game_info *game)
@@ -153,6 +177,22 @@ void	get_player_textures(t_game_info *game)
 	game->textures->player_left[0] = mlx_load_png("./textures/main_character/left_idle_1.png");
 	game->textures->player_left[1] = mlx_load_png("./textures/main_character/left_idle_2.png");
 	game->textures->player_left[2] = mlx_load_png("./textures/main_character/left_idle_3.png");
+}
+
+void	get_enemy_textures(t_game_info *game)
+{
+	game->textures->enemy_front[0] = mlx_load_png("./textures/main_character/m_front_idle_1.png");
+	game->textures->enemy_front[1] = mlx_load_png("./textures/main_character/m_front_idle_2.png");
+	game->textures->enemy_front[2] = mlx_load_png("./textures/main_character/m_front_idle_3.png");
+	game->textures->enemy_right[0] = mlx_load_png("./textures/main_character/m_right_idle_1.png");
+	game->textures->enemy_right[1] = mlx_load_png("./textures/main_character/m_right_idle_2.png");
+	game->textures->enemy_right[2] = mlx_load_png("./textures/main_character/m_right_idle_3.png");
+	game->textures->enemy_back[0] = mlx_load_png("./textures/main_character/m_back_idle_1.png");
+	game->textures->enemy_back[1] = mlx_load_png("./textures/main_character/m_back_idle_2.png");
+	game->textures->enemy_back[2] = mlx_load_png("./textures/main_character/m_back_idle_3.png");
+	game->textures->enemy_left[0] = mlx_load_png("./textures/main_character/m_left_idle_1.png");
+	game->textures->enemy_left[1] = mlx_load_png("./textures/main_character/m_left_idle_2.png");
+	game->textures->enemy_left[2] = mlx_load_png("./textures/main_character/m_left_idle_3.png");
 }
 
 void	get_exit_textures(t_game_info *game)

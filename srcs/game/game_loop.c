@@ -12,13 +12,10 @@ void	game_loop(t_map_info *map)
 	game.mlx = mlx_init((SCALE * map->size_x) * 2, (SCALE * map->size_y) * 2, "so_long", false);
 	if (!game.mlx)
 		mlx_fail_init(&game);
-	game.display = mlx_new_image(game.mlx, (SCALE * map->size_x), (SCALE * map->size_y));
-	// game.img = mlx_new_image(game.mlx, (SCALE * map->player_x), (SCALE * map->player_y));
-	// if (!game.img || (mlx_image_to_window(game.mlx, game.img, 0, 0) < 0))
-	//     mlx_fail_init();
+	game.display = mlx_new_image(game.mlx, (SCALE * map->size_x) * 2, (SCALE * map->size_y) * 2);
 	get_textures(&game);
-	// get_img(&game);
 	start_print(&game);
+	mlx_image_to_window(game.mlx, game.display, 0, 0);
 	mlx_loop_hook(game.mlx, key_handler, &game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
@@ -45,7 +42,6 @@ void	key_handler(void *gam)
 
 void	start_print(t_game_info *game)
 {
-	mlx_resize_image(game->display, (SCALE * game->map->size_x), (SCALE * game->map->size_y));
 	int	i;
 	int	j;
 
@@ -60,9 +56,6 @@ void	start_print(t_game_info *game)
 		}
 		i++;
 	}
-	mlx_resize_image(game->display, (SCALE * game->map->size_x) * 2, (SCALE * game->map->size_y) * 2);
-	mlx_image_to_window(game->mlx, game->display, 0, 0);
-
 }
 
 void	what_put(t_game_info *game, int i, int j)
@@ -77,6 +70,8 @@ void	what_put(t_game_info *game, int i, int j)
 		print_tiles(game, game->img->floor, 1, coor);
 	else if (game->map->map[i][j] == 'P')
 		print_tiles(game, game->img->player_front, 3, coor);
+	else if (game->map->map[i][j] == 'M')
+		print_tiles(game, game->img->enemy_front, 3, coor);
 	else if (game->map->map[i][j] == 'C')
 		print_tiles(game, game->img->object, 24, coor);
 	else if (game->map->map[i][j] == 'E')
@@ -98,7 +93,10 @@ void	print_tiles(t_game_info *game, unsigned long int ***tiles, int nb_frame, in
 		j = 0;
 		while(j < TEXTURE_SCALE)
 		{
-			mlx_put_pixel(game->display, j + (coor[1] * SCALE), i + (coor[0] * SCALE), tiles[frame][i][j]);
+			mlx_put_pixel(game->display, j * 2 + (coor[1] * SCALE * 2), i * 2 + (coor[0] * SCALE * 2), tiles[frame][i][j]);
+			mlx_put_pixel(game->display, j * 2 + 1 + (coor[1] * SCALE * 2), i * 2 + (coor[0] * SCALE * 2), tiles[frame][i][j]);
+			mlx_put_pixel(game->display, j * 2 + (coor[1] * SCALE * 2), i * 2 + 1 + (coor[0] * SCALE * 2), tiles[frame][i][j]);
+			mlx_put_pixel(game->display, j * 2 + 1 + (coor[1] * SCALE * 2), i * 2 + 1 + (coor[0] * SCALE * 2), tiles[frame][i][j]);
 			j++;
 		}
 		i++;
@@ -108,14 +106,24 @@ void	print_tiles(t_game_info *game, unsigned long int ***tiles, int nb_frame, in
 int find_frame(t_game_info *game, unsigned long ***tiles, int nb_frame)
 {
 	double	select;
+	double	rest;
 
-	// if (tiles == game->img->exit && game->map->objects != 0)
-	// 	return 0;
+	if (tiles == game->img->exit && game->map->objects != 0)
+		return 0;
+	else if (tiles == game->img->exit)
+		nb_frame--;
 	select = mlx_get_time();
-	select -= (int)select;
-	// printf("%f\n", select * 3);
-	// if (tiles == game->img->exit)
-	// 	return (select * 11)
-	select *= nb_frame;
+	if (nb_frame >= 20){
+		rest = select - (int)select;
+		select = (int)select % 3;
+		select += rest;
+		select *= nb_frame / 3;
+	}
+	else{
+		select -= (int)select;
+		select *= nb_frame;
+	}
+	if (tiles == game->img->exit)
+		return (select + 1);
 	return select;
 }

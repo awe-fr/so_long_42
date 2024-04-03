@@ -59,13 +59,13 @@ int	scan_map(char **cpy)
 void	call_next(t_map_info *map, char **cpy, int y, int x)
 {
 	cpy[y][x] = '2';
-	if (cpy[y + 1][x] != '1' && cpy[y + 1][x] != 'E' && cpy[y + 1][x] != '2')
+	if (cpy[y + 1][x] != '1' && cpy[y + 1][x] != '2')
 		call_next(map, cpy, y + 1, x);
-	if (cpy[y - 1][x] != '1' && cpy[y - 1][x] != 'E' && cpy[y - 1][x] != '2')
+	if (cpy[y - 1][x] != '1' && cpy[y - 1][x] != '2')
 		call_next(map, cpy, y - 1, x);
-	if (cpy[y][x + 1] != '1' && cpy[y][x + 1] != 'E' && cpy[y][x + 1] != '2')
+	if (cpy[y][x + 1] != '1' && cpy[y][x + 1] != '2')
 		call_next(map, cpy, y, x + 1);
-	if (cpy[y][x - 1] != '1' && cpy[y][x - 1] != 'E' && cpy[y][x - 1] != '2')
+	if (cpy[y][x - 1] != '1' && cpy[y][x - 1] != '2')
 		call_next(map, cpy, y, x - 1);
 }
 
