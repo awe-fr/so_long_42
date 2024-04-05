@@ -3,6 +3,7 @@
         "mlx42.h": "c",
         "types.h": "c",
         "map": "c",
-        "major.h": "c"
+        "major.h": "c",
+        "stdlib.h": "c"
     }
 }

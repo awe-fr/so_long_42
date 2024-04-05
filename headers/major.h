@@ -2,13 +2,14 @@
 # define MAJOR_H
 
 # include "./MLX42/mlx42.h"
-# include <stdbool.h>
 # include <sys/types.h>
 # include <sys/stat.h>
-# include <fcntl.h>
+# include <stdbool.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <fcntl.h>
 # include <stdio.h>
+# include <time.h>
 
 /* define */
 
@@ -27,14 +28,19 @@ typedef struct s_map_info
 	bool	closed;
 	bool	shape;
 	bool	exit;
+	int		*enemy_x;
+	int		*enemy_y;
 	int		start_index;
 	int		map_file;
 	int		player_x;
 	int		player_y;
 	int		objects;
+	int		exit_x;
+	int		exit_y;
 	int		size_x;
 	int		size_y;
 	int		enemy;
+	int		move;
 }	t_map_info;
 
 typedef	struct s_texture_info
@@ -76,6 +82,10 @@ typedef	struct s_game_info
 	t_img_info		*img;
 	t_map_info		*map;
 	mlx_t			*mlx;
+	bool			move_right;
+	bool			move_down;
+	bool			move_left;
+	bool			move_up;
 }	t_game_info;
 
 /* error */
@@ -98,8 +108,10 @@ int		get_map_size(t_map_info *map);
 int		map_by_grid(t_map_info *map);
 int		map_by_line(t_map_info *map);
 int		get_player(t_map_info *map);
+int		get_enemy(t_map_info *map);
 int		next_line_count(char *str);
 int		get_index(t_map_info *map);
+int		get_exit(t_map_info *map);
 int		get_map(t_map_info *map);
 int		map_x(t_map_info *map);
 int		map_y(t_map_info *map);
@@ -117,13 +129,23 @@ int		is_closed(t_map_info *map);
 int		scan_map(char **cpy);
 
 /* game */
+void	init_game(t_game_info *game, t_map_info *map, t_texture_info *textures, t_img_info *img);
 void	print_tiles(t_game_info *game, unsigned long ***tiles, int nb_frame, int *coor);
+void	enemy_can_go_right(t_game_info *game, t_map_info *map, int i);
+void	enemy_can_go_left(t_game_info *game, t_map_info *map, int i);
+void	enemy_can_go_down(t_game_info *game, t_map_info *map, int i);
+void	enemy_can_go_up(t_game_info *game, t_map_info *map, int i);
+void	what_put_player(t_game_info *game, int i, int j);
+void	what_put_enemy(t_game_info *game, int i, int j);
+void	can_go_right(t_game_info *game, t_map_info *map);
+void	can_go_down(t_game_info *game, t_map_info *map);
+void	can_go_left(t_game_info *game, t_map_info *map);
+void	enemy_move(t_game_info *game, t_map_info *map);
+void	can_go_up(t_game_info *game, t_map_info *map);
 void	what_put(t_game_info *game, int i, int j);
-// void	get_player_img(t_game_info *game);
-// void	get_object_img(t_game_info *game);
+void	game_over(t_game_info *game, char *msg);
 void	start_print(t_game_info *game);
 void    game_loop(t_map_info *map);
-// void	get_img(t_game_info *game);
 void	key_handler(void	*gam);
 int		find_frame(t_game_info *game, unsigned long ***tiles, int nb_frame);
 

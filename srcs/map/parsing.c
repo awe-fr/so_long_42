@@ -20,7 +20,38 @@ int	get_map_size(t_map_info *map)
 		return (-1);
 	if (get_player(map) == -1)
 		return (-1);
+	if (get_exit(map) == -1)
+		return (-1);
+	if (get_enemy(map) == -1)
+		return (-1);
 	return 0;
+}
+
+int	get_enemy(t_map_info *map)
+{
+	int i;
+	int j;
+	int	x;
+
+	i = map->start_index;
+	x = 0;
+	map->enemy_x = malloc(map->enemy * sizeof(int));
+	map->enemy_y = malloc(map->enemy * sizeof(int));
+	while(map->map[i])
+	{
+		j = 0;
+		while(map->map[i][j])
+		{
+			if (map->map[i][j] == 'M')
+			{
+				map->enemy_x[x] = j;
+				map->enemy_y[x++] = i - map->start_index;
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }
 
 int	get_player(t_map_info *map)
@@ -38,6 +69,31 @@ int	get_player(t_map_info *map)
 			{
 				map->player_x = j;
 				map->player_y = i - map->start_index;
+				return (0);
+			}
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	return (-1);
+}
+
+int	get_exit(t_map_info *map)
+{
+	int i;
+	int j;
+
+	i = map->start_index;
+	j = 0;
+	while(map->map[i])
+	{
+		while(map->map[i][j])
+		{
+			if (map->map[i][j] == 'E')
+			{
+				map->exit_x = j;
+				map->exit_y = i - map->start_index;
 				return (0);
 			}
 			j++;
@@ -207,7 +263,10 @@ void	map_init(t_map_info *map, char *path)
 	map->player_x = 0;
 	map->player_y = 0;
 	map->objects = 0;
+	map->exit_x = 0;
+	map->exit_y = 0;
 	map->size_x = 0;
 	map->size_y = 0;
 	map->enemy = 0;
+	map->move = 0;
 }

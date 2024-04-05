@@ -16,6 +16,8 @@ void	map_free(t_map_info *map)
 	}
 	if (map->map_flat)
 		free(map->map_flat);
+	// free les mechant
+	// close les fichier
 }
 
 void	free_tab(char **tab)
