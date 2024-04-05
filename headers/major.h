@@ -8,8 +8,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include <stdio.h>
 # include <time.h>
+
+# include <stdio.h>
+# include <string.h>
 
 /* define */
 
@@ -78,10 +80,13 @@ typedef	struct s_img_info
 typedef	struct s_game_info
 {
 	t_texture_info	*textures;
+	mlx_image_t		*count_screen;
 	mlx_image_t		*display;
 	t_img_info		*img;
 	t_map_info		*map;
 	mlx_t			*mlx;
+	double			enemy_last_move;
+	char			count_char[20];
 	bool			move_right;
 	bool			move_down;
 	bool			move_left;
@@ -97,6 +102,7 @@ void	bad_path();
 
 /* utils */
 char	*ft_strjoin(char *first, char *second);
+char	*ft_itoa(char *buff, int count);
 char	*ft_strcopy(char *str);
 int		ft_strlen(char *str);
 

@@ -9,6 +9,7 @@ void	game_loop(t_map_info *map)
 	init_game(&game, map, &textures, &img);
 	start_print(&game);
 	mlx_image_to_window(game.mlx, game.display, 0, 0);
+	mlx_image_to_window(game.mlx, game.count_screen, 8, 4);
 	mlx_loop_hook(game.mlx, key_handler, &game);
 	mlx_loop(game.mlx);
 	game_over(&game, "See you later\n");
@@ -21,6 +22,7 @@ void	init_game(t_game_info *game, t_map_info *map, t_texture_info *textures, t_i
 	game->textures = textures;
 	game->img = img;
 	game->map = map;
+	game->enemy_last_move = 0;
 	game->move_right = true;
 	game->move_down = true;
 	game->move_left = true;
@@ -29,6 +31,7 @@ void	init_game(t_game_info *game, t_map_info *map, t_texture_info *textures, t_i
 	if (!game->mlx)
 		mlx_fail_init(game);
 	game->display = mlx_new_image(game->mlx, (SCALE * map->size_x) * 2, (SCALE * map->size_y) * 2);
+	game->count_screen = mlx_put_string(game->mlx, "Step count : ", 8, 4);
 	get_textures(game);
 }
 
@@ -65,6 +68,9 @@ void	enemy_move(t_game_info *game, t_map_info *map)
 	int	i;
 	
 	i = 0;
+	if (game->enemy_last_move + 1 > mlx_get_time())
+		return;
+	game->enemy_last_move = mlx_get_time();
 	while(i < map->enemy)
 	{
 		move = rand() % 4;
@@ -82,6 +88,8 @@ void	enemy_move(t_game_info *game, t_map_info *map)
 
 void	enemy_can_go_right(t_game_info *game, t_map_info *map, int i)
 {
+	if (map->enemy_y[i] == map->exit_y && map->enemy_x[i] + 1 == map->exit_y)
+		return;
 	if (map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i] + 1] == '0')
 	{
 		map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i] + 1] = 'B';
@@ -94,6 +102,8 @@ void	enemy_can_go_right(t_game_info *game, t_map_info *map, int i)
 
 void	enemy_can_go_left(t_game_info *game, t_map_info *map, int i)
 {
+	if (map->enemy_y[i] == map->exit_y && map->enemy_x[i] - 1 == map->exit_y)
+		return;
 	if (map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i] - 1] == '0')
 	{
 		map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i] - 1] = 'V';
@@ -106,6 +116,8 @@ void	enemy_can_go_left(t_game_info *game, t_map_info *map, int i)
 
 void	enemy_can_go_down(t_game_info *game, t_map_info *map, int i)
 {
+	if (map->enemy_y[i] + 1 == map->exit_y && map->enemy_x[i] == map->exit_y)
+		return;
 	if (map->map[map->enemy_y[i] + map->start_index + 1][map->enemy_x[i]] == '0')
 	{
 		map->map[map->enemy_y[i] + map->start_index + 1][map->enemy_x[i]] = 'M';
@@ -118,6 +130,8 @@ void	enemy_can_go_down(t_game_info *game, t_map_info *map, int i)
 
 void	enemy_can_go_up(t_game_info *game, t_map_info *map, int i)
 {
+	if (map->enemy_y[i] - 1 == map->exit_y && map->enemy_x[i] == map->exit_y)
+		return;
 	if (map->map[map->enemy_y[i] + map->start_index - 1][map->enemy_x[i]] == '0')
 	{
 		map->map[map->enemy_y[i] + map->start_index - 1][map->enemy_x[i]] = 'N';

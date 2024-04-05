@@ -4,6 +4,7 @@
         "types.h": "c",
         "map": "c",
         "major.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "string.h": "c"
     }
 }
