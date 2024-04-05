@@ -82,22 +82,50 @@ void	enemy_move(t_game_info *game, t_map_info *map)
 
 void	enemy_can_go_right(t_game_info *game, t_map_info *map, int i)
 {
-
+	if (map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i] + 1] == '0')
+	{
+		map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i] + 1] = 'B';
+		map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i]] = '0';
+		map->enemy_x[i] += 1;
+	}
+	else if (map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i] + 1] == 'P' || map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i] + 1] == 'O' || map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i] + 1] == 'I' || map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i] + 1] == 'U')
+		game_over(game, "Your died\n");
 }
 
 void	enemy_can_go_left(t_game_info *game, t_map_info *map, int i)
 {
-
+	if (map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i] - 1] == '0')
+	{
+		map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i] - 1] = 'V';
+		map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i]] = '0';
+		map->enemy_x[i] -= 1;
+	}
+	else if (map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i] - 1] == 'P' || map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i] - 1] == 'O' || map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i] - 1] == 'I' || map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i] - 1] == 'U')
+		game_over(game, "Your died\n");
 }
 
 void	enemy_can_go_down(t_game_info *game, t_map_info *map, int i)
 {
-
+	if (map->map[map->enemy_y[i] + map->start_index + 1][map->enemy_x[i]] == '0')
+	{
+		map->map[map->enemy_y[i] + map->start_index + 1][map->enemy_x[i]] = 'M';
+		map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i]] = '0';
+		map->enemy_y[i] += 1;
+	}
+	else if (map->map[map->enemy_y[i] + map->start_index + 1][map->enemy_x[i]] == 'P' || map->map[map->enemy_y[i] + map->start_index + 1][map->enemy_x[i]] == 'O' || map->map[map->enemy_y[i] + map->start_index + 1][map->enemy_x[i]] == 'I' || map->map[map->enemy_y[i] + map->start_index + 1][map->enemy_x[i]] == 'U')
+		game_over(game, "Your died\n");
 }
 
 void	enemy_can_go_up(t_game_info *game, t_map_info *map, int i)
 {
-
+	if (map->map[map->enemy_y[i] + map->start_index - 1][map->enemy_x[i]] == '0')
+	{
+		map->map[map->enemy_y[i] + map->start_index - 1][map->enemy_x[i]] = 'N';
+		map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i]] = '0';
+		map->enemy_y[i] -= 1;
+	}
+	else if (map->map[map->enemy_y[i] + map->start_index - 1][map->enemy_x[i]] == 'P' || map->map[map->enemy_y[i] + map->start_index - 1][map->enemy_x[i]] == 'O' || map->map[map->enemy_y[i] + map->start_index - 1][map->enemy_x[i]] == 'I' || map->map[map->enemy_y[i] + map->start_index - 1][map->enemy_x[i]] == 'U')
+		game_over(game, "Your died\n");
 }
 
 void	game_over(t_game_info *game, char *msg)
@@ -130,7 +158,7 @@ void	can_go_right(t_game_info *game, t_map_info *map)
 	}
 	else if(map->map[map->player_y + map->start_index][map->player_x + 1] == '1')
 		map->map[map->player_y + map->start_index][map->player_x] = 'I';
-	else if(map->map[map->player_y + map->start_index][map->player_x + 1] == 'M')
+	else if(map->map[map->player_y + map->start_index][map->player_x + 1] == 'M' || map->map[map->player_y + map->start_index][map->player_x + 1] == 'N' || map->map[map->player_y + map->start_index][map->player_x + 1] == 'B' || map->map[map->player_y + map->start_index][map->player_x + 1] == 'V')
 		game_over(game, "Your died\n");
 	map->move++;
 	game->move_right = false;
@@ -159,7 +187,7 @@ void	can_go_down(t_game_info *game, t_map_info *map)
 	}
 	else if(map->map[map->player_y + map->start_index + 1][map->player_x] == '1')
 		map->map[map->player_y + map->start_index][map->player_x] = 'P';
-	else if(map->map[map->player_y + map->start_index + 1][map->player_x] == 'M')
+	else if(map->map[map->player_y + map->start_index + 1][map->player_x] == 'M', map->map[map->player_y + map->start_index + 1][map->player_x] == 'N' || map->map[map->player_y + map->start_index + 1][map->player_x] == 'B' || map->map[map->player_y + map->start_index + 1][map->player_x] == 'V')
 		game_over(game, "Your died\n");
 	map->move++;
 	game->move_down = false;
@@ -188,7 +216,7 @@ void	can_go_left(t_game_info *game, t_map_info *map)
 	}
 	else if(map->map[map->player_y + map->start_index][map->player_x - 1] == '1')
 		map->map[map->player_y + map->start_index][map->player_x] = 'U';
-	else if(map->map[map->player_y + map->start_index][map->player_x - 1] == 'M')
+	else if(map->map[map->player_y + map->start_index][map->player_x - 1] == 'M' || map->map[map->player_y + map->start_index][map->player_x - 1] == 'N' || map->map[map->player_y + map->start_index][map->player_x - 1] == 'B' || map->map[map->player_y + map->start_index][map->player_x - 1] == 'V')
 		game_over(game, "Your died\n");
 	map->move++;
 	game->move_left = false;
@@ -218,7 +246,7 @@ void	can_go_up(t_game_info *game, t_map_info *map)
 	}
 	else if(map->map[map->player_y + map->start_index - 1][map->player_x] == '1')
 		map->map[map->player_y + map->start_index][map->player_x] = 'O';
-	else if(map->map[map->player_y + map->start_index - 1][map->player_x] == 'M')
+	else if(map->map[map->player_y + map->start_index - 1][map->player_x] == 'M' || map->map[map->player_y + map->start_index - 1][map->player_x] == 'N' || map->map[map->player_y + map->start_index - 1][map->player_x] == 'B' || map->map[map->player_y + map->start_index - 1][map->player_x] == 'V')
 		game_over(game, "Your died\n");
 	map->move++;
 	game->move_up = false;
