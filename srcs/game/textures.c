@@ -45,14 +45,14 @@ unsigned long ***alloc_int_tab(unsigned long ***img, int size)
 	int	j;
 
 	i = 0;
-	img = malloc(size * sizeof(unsigned long int **));
+	img = malloc(size * sizeof(unsigned long **));
 	while(i < size)
 	{
 		j = 0;
-		img[i] = malloc(TEXTURE_SCALE * sizeof(unsigned long int *));
+		img[i] = malloc(TEXTURE_SCALE * sizeof(unsigned long *));
 		while(j < TEXTURE_SCALE)
 		{
-			img[i][j] = malloc(TEXTURE_SCALE * sizeof(unsigned long int));
+			img[i][j] = malloc(TEXTURE_SCALE * sizeof(unsigned long));
 			j++;
 		}
 		i++;

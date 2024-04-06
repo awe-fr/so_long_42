@@ -9,7 +9,9 @@ void	game_loop(t_map_info *map)
 	init_game(&game, map, &textures, &img);
 	start_print(&game);
 	mlx_image_to_window(game.mlx, game.display, 0, 0);
-	mlx_image_to_window(game.mlx, game.count_screen, 8, 4);
+	mlx_image_to_window(game.mlx, game.count_screen, 135, 5);
+	mlx_image_to_window(game.mlx, game.text_screen, 8, 4);
+	mlx_set_icon(game.mlx, game.textures->player_front[0]);
 	mlx_loop_hook(game.mlx, key_handler, &game);
 	mlx_loop(game.mlx);
 	game_over(&game, "See you later\n");
@@ -27,11 +29,15 @@ void	init_game(t_game_info *game, t_map_info *map, t_texture_info *textures, t_i
 	game->move_down = true;
 	game->move_left = true;
 	game->move_up = true;
-	game->mlx = mlx_init((SCALE * map->size_x) * 2, (SCALE * map->size_y) * 2, "so_long", false);
+	game->count_char = ft_itoa(map->move);
+
+	game->mlx = mlx_init((32 * map->size_x) * 2, (32 * map->size_y) * 2, "so_long", false);
+
 	if (!game->mlx)
 		mlx_fail_init(game);
 	game->display = mlx_new_image(game->mlx, (SCALE * map->size_x) * 2, (SCALE * map->size_y) * 2);
-	game->count_screen = mlx_put_string(game->mlx, "Step count : ", 8, 4);
+	game->text_screen = mlx_put_string(game->mlx, "Step count : ", 8, 4);
+	game->count_screen = mlx_put_string(game->mlx, game->count_char, 135, 5);
 	get_textures(game);
 }
 
@@ -42,7 +48,8 @@ void	key_handler(void *gam)
 	game = gam;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		game_over(game, "See you later\n");
-	enemy_move(game, game->map);
+	if (game->map->enemy != 0)
+		enemy_move(game, game->map);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
 		can_go_down(game, game->map);
 	else
@@ -59,7 +66,22 @@ void	key_handler(void *gam)
 		can_go_up(game, game->map);
 	else
 		game->move_up = true;
+	write_step(game);
 	start_print(game);
+}
+
+void write_step(t_game_info *game)
+{
+	static int	last_count = 0;
+
+	if (last_count != game->map->move)
+	{
+		mlx_delete_image(game->mlx, game->count_screen);
+		free(game->count_char);
+		game->count_char = ft_itoa(game->map->move);
+		game->count_screen = mlx_put_string(game->mlx, game->count_char, 135, 5);
+		last_count = game->map->move;
+	}
 }
 
 void	enemy_move(t_game_info *game, t_map_info *map)
@@ -88,7 +110,7 @@ void	enemy_move(t_game_info *game, t_map_info *map)
 
 void	enemy_can_go_right(t_game_info *game, t_map_info *map, int i)
 {
-	if (map->enemy_y[i] == map->exit_y && map->enemy_x[i] + 1 == map->exit_y)
+	if (map->enemy_y[i] == map->exit_y && map->enemy_x[i] + 1 == map->exit_x)
 		return;
 	if (map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i] + 1] == '0')
 	{
@@ -102,7 +124,7 @@ void	enemy_can_go_right(t_game_info *game, t_map_info *map, int i)
 
 void	enemy_can_go_left(t_game_info *game, t_map_info *map, int i)
 {
-	if (map->enemy_y[i] == map->exit_y && map->enemy_x[i] - 1 == map->exit_y)
+	if (map->enemy_y[i] == map->exit_y && map->enemy_x[i] - 1 == map->exit_x)
 		return;
 	if (map->map[map->enemy_y[i] + map->start_index][map->enemy_x[i] - 1] == '0')
 	{
@@ -116,7 +138,7 @@ void	enemy_can_go_left(t_game_info *game, t_map_info *map, int i)
 
 void	enemy_can_go_down(t_game_info *game, t_map_info *map, int i)
 {
-	if (map->enemy_y[i] + 1 == map->exit_y && map->enemy_x[i] == map->exit_y)
+	if (map->enemy_y[i] + 1 == map->exit_y && map->enemy_x[i] == map->exit_x)
 		return;
 	if (map->map[map->enemy_y[i] + map->start_index + 1][map->enemy_x[i]] == '0')
 	{
@@ -130,7 +152,7 @@ void	enemy_can_go_down(t_game_info *game, t_map_info *map, int i)
 
 void	enemy_can_go_up(t_game_info *game, t_map_info *map, int i)
 {
-	if (map->enemy_y[i] - 1 == map->exit_y && map->enemy_x[i] == map->exit_y)
+	if (map->enemy_y[i] - 1 == map->exit_y && map->enemy_x[i] == map->exit_x)
 		return;
 	if (map->map[map->enemy_y[i] + map->start_index - 1][map->enemy_x[i]] == '0')
 	{
@@ -145,7 +167,6 @@ void	enemy_can_go_up(t_game_info *game, t_map_info *map, int i)
 void	game_over(t_game_info *game, char *msg)
 {
 	write(1, msg, ft_strlen(msg));
-	mlx_terminate(game->mlx);
 	free_graphics(game);
 }
 

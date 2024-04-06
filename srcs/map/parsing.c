@@ -9,6 +9,8 @@ void	map_parsing(t_map_info *map)
 		bad_map_info(map);
 	if (check_info(map) == -1)
 		bad_map_info(map);
+	if (get_enemy(map) == -1)
+		bad_map_info(map);
 }
 
 int	get_map_size(t_map_info *map)
@@ -22,8 +24,6 @@ int	get_map_size(t_map_info *map)
 		return (-1);
 	if (get_exit(map) == -1)
 		return (-1);
-	if (get_enemy(map) == -1)
-		return (-1);
 	return 0;
 }
 
@@ -35,8 +35,10 @@ int	get_enemy(t_map_info *map)
 
 	i = map->start_index;
 	x = 0;
-	map->enemy_x = malloc(map->enemy * sizeof(int));
-	map->enemy_y = malloc(map->enemy * sizeof(int));
+	map->enemy_x = malloc((map->enemy) * sizeof(int));
+	map->enemy_y = malloc((map->enemy) * sizeof(int));
+	if (!map->enemy_x || !map->enemy_y)
+		return (-1);
 	while(map->map[i])
 	{
 		j = 0;
@@ -251,8 +253,10 @@ int	map_by_line(t_map_info *map)
 void	map_init(t_map_info *map, char *path)
 {
 	map->map_path = path;
-	map->map = NULL;
 	map->map_flat = NULL;
+	map->enemy_y = NULL;
+	map->enemy_x = NULL;
+	map->map = NULL;
 	map->playable = false;
 	map->player = false;
 	map->closed = false;

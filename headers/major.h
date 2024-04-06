@@ -30,8 +30,8 @@ typedef struct s_map_info
 	bool	closed;
 	bool	shape;
 	bool	exit;
-	int		*enemy_x;
 	int		*enemy_y;
+	int		*enemy_x;
 	int		start_index;
 	int		map_file;
 	int		player_x;
@@ -81,12 +81,13 @@ typedef	struct s_game_info
 {
 	t_texture_info	*textures;
 	mlx_image_t		*count_screen;
+	mlx_image_t		*text_screen;
 	mlx_image_t		*display;
 	t_img_info		*img;
 	t_map_info		*map;
 	mlx_t			*mlx;
 	double			enemy_last_move;
-	char			count_char[20];
+	char			*count_char;
 	bool			move_right;
 	bool			move_down;
 	bool			move_left;
@@ -101,10 +102,12 @@ void	bad_arguments();
 void	bad_path();
 
 /* utils */
+size_t	ft_len(int n);
 char	*ft_strjoin(char *first, char *second);
-char	*ft_itoa(char *buff, int count);
+char	*ft_itoa_count(char *str, int count);
 char	*ft_strcopy(char *str);
 int		ft_strlen(char *str);
+char	*ft_itoa(int n);
 
 /* parsing */
 void	map_init(t_map_info *map, char *path);
@@ -151,6 +154,7 @@ void	can_go_up(t_game_info *game, t_map_info *map);
 void	what_put(t_game_info *game, int i, int j);
 void	game_over(t_game_info *game, char *msg);
 void	start_print(t_game_info *game);
+void	write_step(t_game_info *game);
 void    game_loop(t_map_info *map);
 void	key_handler(void	*gam);
 int		find_frame(t_game_info *game, unsigned long ***tiles, int nb_frame);
@@ -173,7 +177,9 @@ void	get_textures(t_game_info *game);
 /* exit */
 
 /* free */
+void	free_texture(unsigned long ***texture, int z, int y);
 void	free_graphics(t_game_info *map);
+void	free_img(t_texture_info *imgs);
 void	map_free(t_map_info *map);
 void	free_tab(char **tab);
 
