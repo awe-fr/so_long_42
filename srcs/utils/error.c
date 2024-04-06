@@ -1,13 +1,13 @@
 #include "../../headers/major.h"
 
-void	bad_arguments()
+void	bad_arguments(void)
 {
 	write(2, "Error\n", ft_strlen("Error\n"));
 	write(2, "Wrong number of arguments\n", ft_strlen("Wrong number of arguments\n"));
 	exit(1);
 }
 
-void	bad_path()
+void	bad_path(void)
 {
 	write(2, "Error\n", ft_strlen("Error\n"));
 	write(2, "Wrong map path\n", ft_strlen("Wrong map path\n"));

@@ -5,9 +5,9 @@ void	map_free(t_map_info *map)
 	int	i;
 
 	i = 0;
-	if (map->map) 
+	if (map->map)
 	{
-		while(map->map[i])
+		while (map->map[i])
 		{
 			free(map->map[i]);
 			i++;
@@ -17,7 +17,7 @@ void	map_free(t_map_info *map)
 	if (map->map_flat)
 		free(map->map_flat);
 	i = 0;
-	while(i < map->enemy)
+	while (i < map->enemy)
 	{
 		map->enemy_y[i];
 		map->enemy_x[i++];
@@ -27,10 +27,10 @@ void	map_free(t_map_info *map)
 
 void	free_tab(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(tab[i])
+	while (tab[i])
 		free(tab[i++]);
 	free(tab);
 }
@@ -67,7 +67,8 @@ void	free_img(t_texture_info *imgs)
 	int	i;
 
 	i = 0;
-	while(i < 3){
+	while (i < 3)
+	{
 		mlx_delete_texture(imgs->player_front[i]);
 		mlx_delete_texture(imgs->player_right[i]);
 		mlx_delete_texture(imgs->player_left[i]);
@@ -79,10 +80,10 @@ void	free_img(t_texture_info *imgs)
 		i++;
 	}
 	i = 0;
-	while(i < 24)
+	while (i < 24)
 		mlx_delete_texture(imgs->object[i++]);
 	i = 0;
-	while(i < 12)
+	while (i < 12)
 		mlx_delete_texture(imgs->exit[i++]);
 	mlx_delete_texture(imgs->floor[0]);
 	mlx_delete_texture(imgs->wall[0]);
@@ -94,10 +95,10 @@ void	free_texture(unsigned long ***texture, int z, int y)
 	z--;
 	if (texture)
 	{
-		while(z > -1)
+		while (z > -1)
 		{
 			y = TEXTURE_SCALE - 1;
-			while(y > -1)
+			while (y > -1)
 			{
 				free(texture[z][y]);
 				y--;
