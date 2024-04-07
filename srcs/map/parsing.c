@@ -6,7 +6,7 @@
 /*   By: srajaoui <srajaoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 00:39:28 by srajaoui          #+#    #+#             */
-/*   Updated: 2024/04/07 02:31:21 by srajaoui         ###   ########.fr       */
+/*   Updated: 2024/04/07 03:05:18 by srajaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ int	map_y(t_map_info *map)
 
 int	get_map(t_map_info *map)
 {
-	char	*flat_map;
-
 	if (map->map_file == -1)
 		return (-1);
 	if (map_by_line(map) == -1)

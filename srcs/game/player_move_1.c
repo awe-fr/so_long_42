@@ -6,7 +6,7 @@
 /*   By: srajaoui <srajaoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 02:11:28 by srajaoui          #+#    #+#             */
-/*   Updated: 2024/04/07 02:15:13 by srajaoui         ###   ########.fr       */
+/*   Updated: 2024/04/07 03:03:13 by srajaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	can_go_down_2(t_game_info *game, t_map_info *map)
 		== '1')
 		map->map[map->player_y + map->start_index][map->player_x] = 'P';
 	else if (map->map[map->player_y + map->start_index + 1][map->player_x]
-			== 'M', map->map[map->player_y + map->start_index
+			== 'M' || map->map[map->player_y + map->start_index
 				+ 1][map->player_x] == 'N' || map->map[map->player_y
 					+ map->start_index + 1][map->player_x] == 'B'
 						|| map->map[map->player_y + map->start_index

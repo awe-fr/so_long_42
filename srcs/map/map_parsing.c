@@ -6,7 +6,7 @@
 /*   By: srajaoui <srajaoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 02:31:00 by srajaoui          #+#    #+#             */
-/*   Updated: 2024/04/07 02:31:29 by srajaoui         ###   ########.fr       */
+/*   Updated: 2024/04/07 03:04:51 by srajaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	map_by_grid_loop(t_map_info *map, int i, int x)
 	}
 	j++;
 	map->map[i][x] = '\0';
+    return (0);
 }
 
 int	count_line(char *str)

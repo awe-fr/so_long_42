@@ -6,7 +6,7 @@
 /*   By: srajaoui <srajaoui@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 00:32:05 by srajaoui          #+#    #+#             */
-/*   Updated: 2024/04/07 00:32:07 by srajaoui         ###   ########.fr       */
+/*   Updated: 2024/04/07 03:07:24 by srajaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ void	map_free(t_map_info *map)
 	if (map->map_flat)
 		free(map->map_flat);
 	i = 0;
-	while (i < map->enemy)
-	{
-		map->enemy_y[i];
-		map->enemy_x[i++];
-	}
 	close(map->map_file);
 }
 
