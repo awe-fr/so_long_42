@@ -45,7 +45,7 @@ int	map_by_grid_loop(t_map_info *map, int i, int x)
 	}
 	j++;
 	map->map[i][x] = '\0';
-    return (0);
+	return (0);
 }
 
 int	count_line(char *str)
